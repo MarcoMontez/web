@@ -48,3 +48,7 @@ def predict():
 		return jsonify(result=("Salary: " + str(output)))
 	except Exception as e:
 		return str(e)
+
+@app.route('/cover')
+def cover():
+	return render_template('cover.html')
