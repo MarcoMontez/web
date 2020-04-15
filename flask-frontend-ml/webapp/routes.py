@@ -4,6 +4,7 @@ import pickle
 import numpy as np
 from webapp import app
 from webapp.forms import ValueForm
+from webapp.nametranslator import translator
 import json
 
 model = pickle.load(open('webapp/models/model.pkl','rb'))
@@ -11,7 +12,20 @@ model = pickle.load(open('webapp/models/model.pkl','rb'))
 @app.route('/')
 @app.route('/home')
 def home():
-	return render_template('home.html',title='Home',form = ValueForm())
+	return render_template('jsform.html',title = 'jsform')
+
+@app.route('/name')
+def name():
+	return render_template('name.html',title = 'name')
+
+@app.route('/translate_name')
+def translate_name():
+	try:
+		data = request.args.get('proglang', 0, type=str)
+		return jsonify(result=(translator(data)))
+	except Exception as e:
+		return str(e)
+
 
 
 @app.route('/result',methods=['GET', 'POST'])
