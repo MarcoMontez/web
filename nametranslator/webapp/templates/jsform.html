@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<script src=https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js></script>
+<script type=text/javascript>
+	$(function() {
+	  $('a#process_input').bind('click', function() {
+		$.getJSON('/predict', {
+		  proglang: $('input[name="proglang"]').val(),
+		}, function(data) {
+		  $("#result").text(data.result);
+		});
+		return false;
+	  });
+	});
+</script>
+
+
+<div class='container'>
+	<h3>Enter your years of experience?</h3>
+	<form>
+		<input type=number size=5 name=proglang>
+		<a href="#" id=process_input> <button class="btn info">Submit</button></a>
+	</form>
+	<p id=result></p>
+</div>
+
+{% endblock content  %}
